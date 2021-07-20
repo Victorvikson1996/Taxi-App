@@ -4,8 +4,13 @@ import MapView from 'react-native-maps'
 import mapStyle from '../style'
 import Feather from 'react-native-vector-icons/Feather'
 import style from '../style'
+import data from '../data'
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
+
+import iconMoonConfig from '../assets/selection.json'
 
 
+const Car = createIconSetFromIcoMoon(iconMoonConfig, 'icomoon', 'icomoon.ttf')
 
 
 
@@ -52,10 +57,47 @@ export default function Home() {
                         </View>
                     </TouchableOpacity>
                 </SafeAreaView>
+                <View key={data.id}>
+                    {
+                        data.map((data) => {
+                            return (
+                                <View>
+                                    <Text>{data.name}</Text>
+                                    <Car name={data.icon} size={45} />
+                                </View>
+                            );
+                        })
+                    }
+                </View>
             </View>
         </View>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const styles = StyleSheet.create({
