@@ -1,13 +1,16 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, TouchableOpacity } from 'react-native'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import mapStyle from '../style'
 import Feather from 'react-native-vector-icons/Feather'
+import IonIcons from 'react-native-vector-icons/Ionicons'
+import Fontisto from 'react-native-vector-icons/Fontisto'
 import style from '../style'
 import data from '../data'
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
 
 import iconMoonConfig from '../assets/selection.json'
+
 
 
 const Car = createIconSetFromIcoMoon(iconMoonConfig, 'icomoon', 'icomoon.ttf')
@@ -38,7 +41,27 @@ export default function Home() {
                 }}
                 customMapStyle={mapStyle}
             >
-
+                <Marker coordinate={{
+                    latitude: 6.439129,
+                    longitude: 7.514894,
+                }}>
+                    <View style={styles.pin}>
+                        <Fontisto
+                            name='map-marker-alt'
+                            size={30}
+                            style={{ color: '#02dc9f' }}
+                        />
+                    </View>
+                </Marker>
+                <Marker coordinate={{
+                    latitude: 6.435707,
+                    longitude: 7.514220
+                }}
+                >
+                    <View style={styles.marker}>
+                        <IonIcons name="navigate" size={20} />
+                    </View>
+                </Marker>
             </MapView>
             <View>
                 <SafeAreaView style={styles.container}>
@@ -57,42 +80,28 @@ export default function Home() {
                         </View>
                     </TouchableOpacity>
                 </SafeAreaView>
-                <View key={data.id}>
+                <View style={styles.categoryWarraper}>
                     {
                         data.map((data) => {
                             return (
-                                <View>
-                                    <Text>{data.name}</Text>
-                                    <Car name={data.icon} size={45} />
+                                <View key={data.id} style={styles.category}>
+                                    <Text style={{ color: data.id === '1' ? '#5d5e6b' : '#c1c2c7' }}>{data.name}</Text>
+                                    <IonIcons style={{ color: data.id === '1' ? '#5d5e6b' : '#c1c2c7' }} name='car-outline' size={40} />
+                                    {/* <Car name={data.icon} size={45} /> */}
                                 </View>
                             );
                         })
                     }
                 </View>
             </View>
+            <View style={styles.buttonWrapper}>
+                <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>PickMe Here!</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
             height: 10,
         },
         shadowRadius: 6,
-        shadowOpacity: 0.85,
+        shadowOpacity: 0.05,
     },
     inputWrapper: {
         flexDirection: 'row',
@@ -138,6 +147,59 @@ const styles = StyleSheet.create({
     inputText: {
         fontWeight: '600',
         color: '#8b8d96'
+
+    },
+    categoryWarraper: {
+        alignItems: 'flex-end',
+        backgroundColor: '#fff',
+        padding: 20,
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+        position: 'absolute',
+        right: 0,
+        top: height / 7,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        }, shadowRadius: 20,
+        shadowOpacity: 0.1
+    },
+    category: {
+        alignItems: 'center',
+        marginBottom: 3,
+    },
+    buttonWrapper: {
+        position: 'absolute',
+        bottom: 100,
+        alignSelf: 'center'
+    },
+    button: {
+        backgroundColor: '#000',
+        paddingVertical: 15,
+        paddingHorizontal: 16,
+    },
+
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold'
+
+    },
+    pin: {
+        width: 130,
+        height: 130,
+        borderRadius: 130,
+        backgroundColor: 'rgba(2,220,159,.25)',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    marker: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        alignItems: 'center',
+        justifyContent: 'center'
 
     }
 
