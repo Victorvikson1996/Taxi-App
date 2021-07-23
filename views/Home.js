@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Button, SafeAreaView, Pressable, TouchableOpacity } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import mapStyle from '../style'
 import Feather from 'react-native-vector-icons/Feather'
@@ -27,7 +27,7 @@ const { width, height } = Dimensions.get('window')
 
 const ASPECT_RATIO = width / height
 
-export default function Home() {
+export default function Home({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
             <MapView
@@ -95,9 +95,11 @@ export default function Home() {
                 </View>
             </View>
             <View style={styles.buttonWrapper}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.button}>
                     <Text style={styles.buttonText}>PickMe Here!</Text>
                 </TouchableOpacity>
+
+                {/* <Button title="PickMe Here!" style={styles.buttonText} /> */}
             </View>
         </View>
     )
